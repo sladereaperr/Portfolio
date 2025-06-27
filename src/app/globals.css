@@ -5,9 +5,6 @@
   --foreground: white;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-roboto: var(--font-roboto);
 }
 
 html {
@@ -19,25 +16,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 2px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fbbf24;
+  background: #fe0000;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #f59e0b;
-}
-
-[data-mode="dark"] {
-  --background: #1b1717;
-  --foreground: #f59e0b;
 }
 
 body {
@@ -77,11 +69,6 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
-
-.animated-gradient {
-  background-size: 200% 200%;
-  animation: gradientShift 8s ease infinite;
 }
 
 @media (min-width: 1715px) {

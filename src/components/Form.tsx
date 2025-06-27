@@ -50,6 +50,7 @@ export default function ContactForm() {
           <input
             type="text"
             name="name"
+            placeholder="Enter name"
             required
             className="w-full p-3 rounded bg-black/20 border border-white/20 text-white focus:ring-amber-500 focus:outline-none"
           />
@@ -61,6 +62,7 @@ export default function ContactForm() {
           <input
             type="email"
             name="email"
+            placeholder="Enter valid email"
             required
             className="w-full p-3 rounded bg-black/20 border border-white/20 text-white focus:ring-amber-500 focus:outline-none"
           />
@@ -74,6 +76,7 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
+          placeholder="Enter message"
           className="w-full p-3 rounded bg-black/20 border border-white/20 text-white focus:ring-amber-500 focus:outline-none"
         ></textarea>
       </div>
