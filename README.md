@@ -1,4 +1,4 @@
-# 🌐 Karan Jadhav — Portfolio
+# 🌐 Portfolio
 
 Welcome to my personal developer portfolio! This is a modern, fully responsive, and animated web application built using **Next.js**, **Tailwind CSS**, **Framer Motion**, and **ShadCN/UI** to showcase my skills, experience, and projects.
 
@@ -34,15 +34,5 @@ Welcome to my personal developer portfolio! This is a modern, fully responsive, 
 - **Certifications** – Achievements and recognitions
 - **Contact** – Contact form with email trigger and toast
 
-## 🖼️ Screenshots
-
-> Add screenshots here if you'd like!
-
-## 📦 Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/sladereaperr/Portfolio.git
-cd Portfolio
-```
+## 🕸️ Website
+https://sladereaperr.vercel.app/
