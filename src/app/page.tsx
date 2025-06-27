@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ContactForm from "@/components/Form";
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   User,
   Home,
@@ -31,8 +31,6 @@ import { Button } from "@/components/ui/button";
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("intro");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   const sections = [
     { id: "intro", label: "Home", icon: Home },
@@ -306,23 +304,23 @@ const Portfolio = () => {
             <div className="grid md:grid-cols-2 gap-12">
               <div className="space-y-6">
                 <p className="text-lg leading-relaxed">
-                  Hey, I'm Karan Jadhav—a Computer Science student at PES
-                  University with a deep enthusiasm for solving problems through
-                  technology. While I have a strong interest in AI and machine
-                  learning, my passion isn't limited to any one domain. Whether
-                  it's building software systems, exploring data, designing
-                  intuitive interfaces, or diving into emerging tech, I'm always
-                  eager to learn and explore the full landscape of computer
-                  science.
+                  Hey, I&apos;m Karan Jadhav&mdash;a Computer Science student at
+                  PES University with a deep enthusiasm for solving problems
+                  through technology. While I have a strong interest in AI and
+                  machine learning, my passion isn&apos;t limited to any one
+                  domain. Whether it&apos;s building software systems, exploring
+                  data, designing intuitive interfaces, or diving into emerging
+                  tech, I&apos;m always eager to learn and explore the full
+                  landscape of computer science.
                 </p>
                 <p className="text-lg leading-relaxed">
                   I believe in learning by doing and thrive in hands-on,
-                  collaborative environments. I'm currently looking for
-                  opportunities—internships, research roles, or innovative
-                  teams—where I can contribute, grow, and keep expanding my
-                  horizon in tech.
+                  collaborative environments. I&apos;m currently looking for
+                  opportunities&mdash;internships, research roles, or innovative
+                  teams&mdash;where I can contribute, grow, and keep expanding
+                  my horizon in tech.
                 </p>
-                <p>Let's connect and create something exciting.</p>
+                <p>Let&apos;s connect and create something exciting.</p>
               </div>
             </div>
           </motion.div>
@@ -438,20 +436,18 @@ const Portfolio = () => {
                       }}
                       className="flex flex-wrap gap-3"
                     >
-                      {["Python", "C", "C++", "Java", "Go*"].map(
-                        (skill, index) => (
-                          <motion.li
-                            key={skill}
-                            variants={{
-                              hidden: { opacity: 0, y: 10 },
-                              visible: { opacity: 1, y: 0 },
-                            }}
-                            className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
-                          >
-                            {skill}
-                          </motion.li>
-                        )
-                      )}
+                      {["Python", "C", "C++", "Java", "Go*"].map((skill) => (
+                        <motion.li
+                          key={skill}
+                          variants={{
+                            hidden: { opacity: 0, y: 10 },
+                            visible: { opacity: 1, y: 0 },
+                          }}
+                          className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+                        >
+                          {skill}
+                        </motion.li>
+                      ))}
                     </motion.div>
                   </motion.ul>
                 </CardContent>
@@ -492,7 +488,7 @@ const Portfolio = () => {
                         "Next.js",
                         "Tailwind CSS",
                         "Framer Motion",
-                      ].map((skill, index) => (
+                      ].map((skill) => (
                         <motion.li
                           key={skill}
                           variants={{
@@ -551,7 +547,7 @@ const Portfolio = () => {
                         "GenAI",
                         "Selenium",
                         "Arduino",
-                      ].map((skill, index) => (
+                      ].map((skill) => (
                         <motion.li
                           key={skill}
                           variants={{
@@ -784,11 +780,11 @@ const Portfolio = () => {
             className="text-white"
           >
             <h2 className="text-5xl font-black text-amber-600 mb-8">
-              Let's Work Together
+              Let&apos;s Work Together
             </h2>
             <p className="text-xl mb-12 max-w-2xl mx-auto">
-              I'm always interested in new opportunities and exciting projects.
-              Let's discuss how we can bring your ideas to life.
+              I&apos;m always interested in new opportunities and exciting
+              projects. Let&apos;s discuss how we can bring your ideas to life.
             </p>
             <ContactForm />
             {/* <form
