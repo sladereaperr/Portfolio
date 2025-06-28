@@ -655,7 +655,7 @@ const Portfolio = () => {
                   title: "RAG for Contextual Question Answering, Summarisation",
                   description:
                     "Building context-aware question-answering systems. Developed a system using LangChain, ChromaDB, and OpenAI embeddings, optimizing retrieval across various document formats",
-                  tech: ["Next.js", "Socket.io", "PostgreSQL", "Tailwind"],
+                  tech: ["Langchain", "ChromaDB", "Streamlit"],
                   link: "#",
                 },
                 {
