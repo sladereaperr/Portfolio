@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ContactForm from "@/components/Form";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import {
   User,
   Home,
@@ -18,6 +18,8 @@ import {
   Download,
   Menu,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import {
   Card,
@@ -27,6 +29,78 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+const allProjects = [
+  {
+    title: "GenMark – AI-powered Personalized Ad Generator",
+    description:
+      "Full-stack AI tool that generates personalized ads (text, image, video) from customer CSV data using Gemini, Groq, and Predis APIs. Enabled live editing and email automation with SMTP.",
+    tech: [
+      "LangGraph",
+      "React",
+      "FastAPI",
+      "MongoDB Atlas",
+      "Gemini",
+      "Groq",
+      "SMTP",
+    ],
+    github: "https://github.com/984-ISHU/GenMark",
+    live: "https://gen-mark.vercel.app",
+  },
+  {
+    title: "Intelligent Disaster Response Agent",
+    description:
+      "Real-time disaster response platform with agent-based LLMs like BERT, RoBERTa, and T5. Features multilingual detection, urgency classification, entity extraction, speech-to-text chatbot, and RAG summarization.",
+    tech: [
+      "Streamlit",
+      "BERT",
+      "RoBERTa",
+      "T5",
+      "Selenium",
+      "RAG",
+      "Langchain",
+      "Folium",
+    ],
+    github:
+      "https://github.com/sladereaperr/Intelligent-Disaster-Response-Agent",
+    live: null,
+  },
+  {
+    title: "RAG for Contextual Q&A and Summarization",
+    description:
+      "Built a context-aware question answering and summarization system using LangChain, ChromaDB, and OpenAI embeddings. Enabled intelligent retrieval across various document formats.",
+    tech: ["LangChain", "ChromaDB", "OpenAI Embeddings", "Streamlit"],
+    github: "https://github.com/sladereaperr/Naive-RAG",
+    live: null,
+  },
+  {
+    title: "Attack on LLMs Survey (Research)",
+    description:
+      "Comprehensive technical survey on vulnerabilities in large language models (LLMs), covering adversarial attacks like prompt injection, jailbreaks, PAIR, TAP, DeepInception, and corresponding defenses.",
+    tech: ["Research", "LLM Security", "PAIRED", "DeepInception"],
+    github:
+      "https://drive.google.com/drive/folders/1uGYvG-0pc1wsnlng5zxhUy923MO12NXZ",
+    live: null,
+  },
+  {
+    title: "Criminal DB Management System",
+    description:
+      "Role-based criminal database system with modules for case tracking, crime reporting, evidence management, and investigation progress. Built with a RESTful architecture.",
+    tech: ["React", "Node.js", "Express", "MySQL", "REST API"],
+    github: "https://github.com/sladereaperr/CDMS",
+    live: null,
+  },
+  {
+    title: "Dog Supplies E-commerce Web App",
+    description:
+      "Full-stack MERN web application for pet supplies. Includes product catalog, user login, and shopping cart functionalities.",
+    tech: ["MongoDB", "Express", "React", "Node.js"],
+    github: null,
+    live: null,
+  },
+];
+
+const ITEMS_PER_PAGE = 4;
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("intro");
@@ -92,6 +166,50 @@ const Portfolio = () => {
       y: 0,
       transition: { type: "spring", stiffness: 100 },
     },
+  };
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+  const totalPages = Math.ceil(allProjects.length / ITEMS_PER_PAGE);
+
+  // Auto scroll every 10s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPage((prevPage) => (prevPage + 1) % totalPages);
+    }, 20000); // 10 seconds
+    return () => clearInterval(interval);
+  }, [totalPages]);
+
+  const visibleProjects = allProjects.slice(
+    currentPage * ITEMS_PER_PAGE,
+    (currentPage + 1) * ITEMS_PER_PAGE
+  );
+
+  const goLeft = () => {
+    setDirection(-1);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const goRight = () => {
+    setDirection(1);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const projectVariants: Variants = {
+    initial: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? 50 : -50,
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5 },
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? -50 : 50,
+      transition: { duration: 0.5 },
+    }),
   };
 
   return (
@@ -619,90 +737,103 @@ const Portfolio = () => {
 
       {/* Projects Section */}
       <section id="projects" className="flex items-center px-6 py-20 my-20">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl font-black text-amber-600 mb-12">
+            <h2 className="text-5xl font-black text-amber-600 mb-12 text-center">
               Projects
             </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  title: "E-Commerce Dog Supplies Web App",
-                  description:
-                    "Full-stack web application development for pet supplies, using React, HTML, CSS, MongoDB (MERN Stack)",
-                  tech: ["React", "Node.js", "MongoDB"],
-                  link: "#",
-                },
-                {
-                  title: "Intelligent Disaster Response Agent",
-                  description:
-                    "Developed an AI-powered disaster response system enabling real-time detection, decision-making, and multilingual communication. Integrated LLMs, social media analysis, and advanced RAG for enhanced crisis management.",
-                  tech: [
-                    "HuggingFace",
-                    "Selenium",
-                    "Tavily",
-                    "RAG",
-                    "Langchain",
-                  ],
-                  link: "https://github.com/sladereaperr/Intelligent-Disaster-Response-Agent",
-                },
-                {
-                  title: "RAG for Contextual Question Answering, Summarisation",
-                  description:
-                    "Building context-aware question-answering systems. Developed a system using LangChain, ChromaDB, and OpenAI embeddings, optimizing retrieval across various document formats",
-                  tech: ["Langchain", "ChromaDB", "Streamlit"],
-                  link: "#",
-                },
-                {
-                  title: "Attack on LLMs Survey",
-                  description:
-                    "Research project focusing on vulnerabilities in large language models.",
-                  tech: ["Research"],
-                  link: "#",
-                },
-              ].map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="bg-gradient-to-r from-amber-600 to-amber-400 backdrop-blur-sm border-none drop-shadow-[5px_10px_7px_rgba(217,119,6,0.5)] text-white">
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
-                        <span className="text-black">{project.title}</span>
-                        {/* <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-amber-600 hover:bg-amber-50"
-                        >
-                          <ExternalLink size={16} />
-                        </Button> */}
-                      </CardTitle>
-                      <CardDescription>{project.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tech.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2 py-1 bg-amber-100 text-amber-700 rounded text-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+
+            <div className="flex items-center justify-between mb-6">
+              <button
+                onClick={goLeft}
+                className="text-amber-600 hover:text-amber-800 transition"
+              >
+                <ChevronLeft size={32} />
+              </button>
+
+              <button
+                onClick={goRight}
+                className="text-amber-600 hover:text-amber-800 transition"
+              >
+                <ChevronRight size={32} />
+              </button>
             </div>
+
+            <motion.div
+              className="relative overflow-hidden"
+              style={{ minHeight: "500px" }} // Set a consistent minimum height
+              animate={{ height: "auto" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={currentPage}
+                  custom={direction}
+                  variants={projectVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                >
+                  {visibleProjects.map((project) => (
+                    <Card
+                      key={project.title}
+                      className="bg-gradient-to-r from-amber-600 to-amber-400 backdrop-blur-sm border-none drop-shadow-[5px_10px_7px_rgba(217,119,6,0.5)] text-white"
+                    >
+                      <CardHeader>
+                        <CardTitle className="flex items-center justify-between">
+                          <span className="text-black">{project.title}</span>
+                        </CardTitle>
+                        <p className="text-sm text-black">
+                          {project.description}
+                        </p>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {project.tech.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-1 bg-amber-100 text-amber-700 rounded text-sm"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Display links if available */}
+                        <div className="flex gap-3 mt-2">
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm text-white hover:text-black bg-black/20 px-3 py-1 rounded transition"
+                            >
+                              Github
+                            </a>
+                          )}
+                          {project.live && (
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm text-white hover:text-black bg-black/20 px-3 py-1 rounded transition"
+                            >
+                              Live
+                            </a>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
         </div>
       </section>
